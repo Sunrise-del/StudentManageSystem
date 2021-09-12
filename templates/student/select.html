@@ -7,15 +7,17 @@
 {{ txt }}
 <body>
     {% if msg %}
+        {{ status }}
         <ul>
+            <li>学号：{{ stu_id }}</li>
             <li>姓名：{{ stu_name }}</li>
             <li>院系：{{ stu_faculty }}</li>
             <li>专业：{{ stu_major }}</li>
         </ul>
     {% else %}
-       <h1>请在下面的输入框中填入要查询的学生姓名</h1>
+       <h1>请在下面的输入框中填入要查询的学生学号</h1>
         <form method="post" action="/student/select/">
-            <input type="text" name="stu_name"><br>
+            <input type="text" name="stu_id"><br>
             <input type="submit" value="提交">
         </form>
     {% endif %}

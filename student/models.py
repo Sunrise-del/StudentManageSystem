@@ -22,8 +22,8 @@ class StudentInfo(models.Model):
     stu_faculty = models.CharField(max_length=20, verbose_name="院系")
     stu_major = models.CharField(max_length=30, verbose_name="专业")
 
-    # 取消外键（外键是可用的）
-    # stu_course = models.ForeignKey('Course', on_delete=True)
+    stu_course = models.ForeignKey('Course', on_delete=models.CASCADE)
+
     # class Meta():
     #     db_table = 'student'
 
