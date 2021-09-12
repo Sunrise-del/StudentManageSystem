@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add</title>
+</head>
+<body>
+<h1>请在下列信息栏中填入学生的基本信息</h1>
+<form method="post" action="/student/add/">
+    学生姓名：<input type="text" name="stu_name" autocomplete="off"/><br>
+    学生院系：<input type="text" name="stu_faculty" autocomplete="off"/><br>
+    学生专业：<input type="text" name="stu_major" autocomplete="off"/><br>
+    <input class="bc" type="submit" value="保存"/>
+    {% if error %}
+        <h5>{{ error }}</h5><br>
+    {% endif %}
+    {% if success %}
+        <h5>{{ success }}</h5>
+    {% endif %}
+</form>
+</body>
+</html>

@@ -19,8 +19,6 @@ class Course(models.Model):
 class StudentInfo(models.Model):
     stu_id = models.BigAutoField(primary_key=True, verbose_name="学生ID")
     stu_name = models.CharField(max_length=30, verbose_name="学生姓名")
-    stu_phone = models.CharField(max_length=20, verbose_name="学生电话")
-    stu_addr = models.TextField(verbose_name="学生地址")
     stu_faculty = models.CharField(max_length=20, verbose_name="院系")
     stu_major = models.CharField(max_length=30, verbose_name="专业")
 
