@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/commons.css">
+    <link rel="stylesheet" href="/static/plugins/bootstrap-3.4.1-dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/static/plugins/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="/static/css/commons.css">
+    <title>学生管理系统</title>
+</head>
+<body>
+    <div class="pg-header">
+        <div class="logo left">六六学生信息管理系统</div>
+        <div class="avatar right" style="position: relative">
+            <img style="width: 40px; height: 40px" src="/static/images/WechatIMG4.jpeg">
+            <div class="userinfo">
+                <a href="/student/logout/">退出登录</a>
+            </div>
+        </div>
+        <div class="rmenus right">
+            <a href="/student/login/">log_in</a>
+            <a href="/student/sign_up/">sign_up</a>
+        </div>
+    </div>
+
+    <div class="pg-body">
+        <div class="menus">
+            <a href="/student/index/"><i class="fa fa-mortar-board" aria-hidden="true"></i>班级管理</a>
+            <a href="/student/index/"><i class="fa fa-mortar-board" aria-hidden="true"></i>学生管理</a>
+            <a href="/student/index/"><i class="fa fa-mortar-board" aria-hidden="true"></i>教师管理</a>
+        </div>
+        <div class="content">
+            <div>
+                <ul class="nav nav-tabs">
+                  <li role="presentation"><a href="/student/index/">Home</a></li>
+                  <li role="presentation"><a href="/student/select/">查询学生</a></li>
+                  <li role="presentation"><a href="/student/add/">添加学生</a></li>
+                </ul>
+            </div>
+            {% block xx %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

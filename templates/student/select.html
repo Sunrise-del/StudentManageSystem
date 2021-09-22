@@ -1,26 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Select</title>
-</head>
+{% extends 'student/layout.html' %}
+{% block xx %}
 {{ txt }}
 <body>
     {% if msg %}
         {{ status }}
-        <ul>
-            <li>学号：{{ stu_id }}</li>
-            <li>姓名：{{ stu_name }}</li>
-            <li>院系：{{ stu_faculty }}</li>
-            <li>专业：{{ stu_major }}</li>
-        </ul>
-    {% else %}
-       <h1>请在下面的输入框中填入要查询的学生学号</h1>
+        <h1>请在下面的输入框中填入要查询的学生学号</h1>
         <form method="post" action="/student/select/">
             <input type="text" name="stu_id"><br>
             <input type="submit" value="提交">
         </form>
+    {% else %}
+       <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>姓名</th>
+                <th>学院</th>
+                <th>专业</th>
+                {% for item in stu_select_info %}
+                    <tr>
+                        <td>{{ item.stu_id }}</td>
+                        <td>{{ item.stu_name }}</td>
+                        <td>{{ item.stu_faculty }}</td>
+                        <td>{{ item.stu_major }}</td>
+                    </tr>
+                {% endfor %}
+            <tr/>
+        </table>
     {% endif %}
-
 </body>
-</html>
+{% endblock %}

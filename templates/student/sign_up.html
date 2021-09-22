@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign_up</title>
-</head>
-<body>
-{{ status }}
-<form method="post" action="/student/sign_up/">
-{#    {% csrf_token %}#}
-{#    <input type="text" name="id" placeholder="学号"/>{{ aa }}<br>#}
-    <input type="text" name="username" placeholder="用户名：" autocomplete="off"/><br>
-    <input type="password" name="password" placeholder="密 码：" autocomplete="off"/><br>
-    <input class="tj" type="submit" value="提交">
-</form>
-</body>
-</html>
+{% extends 'student/layout.html' %}
+{% block xx %}
+    <div class="lead text-center login-form">
+            {{ status }}
+            <form method="post" action="/student/sign_up/">
+                <input type="text" name="username" placeholder="用户名：" autocomplete="off"/><br>
+                <input type="password" name="password" placeholder="密 码：" autocomplete="off"/><br>
+                <input class="tj" type="submit" value="注册">
+            </form>
+    </div>
+{% endblock %}

@@ -1,24 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>index</title>
-    <link rel="stylesheet" href="/static/commons.css">
-</head>
-<body>
-<h2>欢迎来到学生信息管理系统</h2><br>
-{% if length %}
-    {{ txt }}<br>
-    <h3>请选择你要执行的功能</h3>
-    <a href="/student/add/">添加学生信息</a><br>
-    <a href="/student/delete/">删除学生信息</a><br>
-    <a href="/student/select/">查询学生信息</a><br>
-    <a href="/student/update/">修改学生信息</a><br>
-    <a href="/student/logout/">退出登录</a><br>
-{% else %}
-    你好：{{ status }}<br>
-    <a href="/student/sign_up/">注册</a><br>
-    <a href="/student/login/">登录</a><br>
-{% endif %}
-</body>
-</html>
+{% extends 'student/layout.html' %}
+{% block xx %}
+    <div class="lead text-center login-form">
+        <h1>欢迎来到六六学生管理系统</h1>
+    </div>
+    <table class="table table-hover">
+        <tr>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>学院</th>
+            <th>专业</th>
+            <th>操作</th>
+        </tr>
+        <tbody>
+        {% for item in stu_info %}
+            <tr>
+                <td>{{ item.stu_id }}</td>
+                <td>{{ item.stu_name }}</td>
+                <td>{{ item.stu_faculty }}</td>
+                <td>{{ item.stu_major }}</td>
+                <td>
+                    <a href="/student/update/?stu_id={{ item.stu_id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    |
+                    <a href="/student/delete/?stu_id={{ item.stu_id }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

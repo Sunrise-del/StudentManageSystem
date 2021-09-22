@@ -1,0 +1,90 @@
+body {
+    margin-top: 0;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.pg-header {
+    height: 48px;
+    min-width: 1190px;
+    background-color: #1b6d85;
+    line-height: 48px;  /*居中子级类*/
+}
+.pg-header .logo {
+    color: white;
+    font-size: 18px;
+    width: 200px;
+    text-align: center; /*左右居中*/
+    border-right: 1px solid #9d9d9d;
+}
+.pg-header .rmenus a {
+    display: inline-block;
+    padding: 0 8px;
+    color: white;
+}
+
+.pg-header .rmenus a:hover {
+    background-color: #9d9d9d;
+}
+
+.pg-header .avatar {
+    padding: 0 20px;
+}
+
+.pg-header .avatar img {
+    border-radius: 50%;
+}
+
+.pg-header .avatar .userinfo {
+    display: none;
+    position: absolute;
+    width: 200px;
+    top: 48px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #9acfea;
+    z-index: 100
+}
+
+.pg-header .avatar:hover .userinfo {
+    display: block;
+}
+
+.pg-header .avatar .userinfo a {
+    display: block;
+    padding: 2px;
+}
+
+.menus {
+    width: 200px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 48px;
+    background-color: #dddddd;
+    border-right: 1px solid #9d9d9d; /*右侧加边框*/
+}
+
+.content {
+    position: absolute;
+    left: 200px;
+    right: 0;
+    top: 48px;
+    bottom: 0;
+    min-width: 990px;
+    overflow: scroll;
+    background-color: white;
+    z-index: 99;
+}
+
+.pg-body .menus a {
+    display: block; /*占一行*/
+    padding: 10px 5px; /*边距：上下10px 左右5px*/
+    border-bottom: 1px solid #9acfea;
+}

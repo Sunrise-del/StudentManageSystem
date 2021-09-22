@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Update</title>
-</head>
-<body>
+{% extends 'student/layout.html' %}
+{% block xx %}
 <h1>请在下列信息栏中填入学生的基本信息</h1>
-<form method="post" action="/student/update/">
-    学生学号：<input type="text" name="stu_id"><br>
-    学生姓名：<input type="text" name="stu_name"><br>
-    学生院系：<input type="text" name="stu_faculty"><br>
-    学生专业：<input type="text" name="stu_major"><br>
+<form method="post" action="/student/update/?stu_id={{ stu_info.stu_id }}">
+{#<form method="post" action="/student/update/?stu_id={{ stu_info.stu_id }}">#}
+{#    学生学号：<input type="text" name="stu_id"><br>#}
+    学生姓名：<input type="text" name="stu_name" value="{{ stu_info.stu_name }}"><br>
+    学生院系：<input type="text" name="stu_faculty" value="{{ stu_info.stu_faculty }}"><br>
+    学生专业：<input type="text" name="stu_major" value="{{ stu_info.stu_major }}"><br>
     <input type="submit" value="提交">
 </form>
-</body>
-</html>
+{% endblock %}

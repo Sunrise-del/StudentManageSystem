@@ -1,15 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-<form method="post" action="/student/login/">
-    {{ status }}<br>
-    <input type="text" name="username" placeholder="用户名：" autocomplete="off"/><br>
-    <input type="password" name="password" placeholder="密 码：" autocomplete="off"/><br>
-    <input class="tj" type="submit" value="登录">
-</form>
-</body>
-</html>
+{% extends 'student/layout.html' %}
+{% block xx %}
+        <div class="lead text-center login-form">
+            <form method="post" action="/student/login/">
+                {{ status }}<br>
+                <input type="text" name="username" placeholder="用户名：" autocomplete="off"/><br>
+                <input type="password" name="password" placeholder="密 码：" autocomplete="off"/><br>
+                <input class="btn btn-info" type="submit" value="登录">
+            </form>
+        </div>
+{% endblock xx %}
+
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <link rel="stylesheet" href="/static/commons.css">#}
+{#    <link rel="stylesheet" href="/static/plugins/bootstrap-3.4.1-dist/css/bootstrap.css"/>#}
+{#    <link rel="stylesheet" href="/static/plugins/font-awesome-4.7.0/css/font-awesome.css">#}
+{#    <link rel="stylesheet" href="/static/css/commons.css">#}
+{#    <title>学生管理系统</title>#}
+{#</head>#}
+{#<body>#}
+{#    <div class="pg-header">#}
+{#        <div class="logo left">学生信息管理系统</div>#}
+{#        <div class="avatar right" style="position: relative">#}
+{#            <img style="width: 40px; height: 40px" src="/static/images/WechatIMG4.jpeg">#}
+{#            <div class="userinfo">#}
+{#                <a href="/student/logout/">退出登录</a>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="rmenus right">#}
+{#            <a href="/student/login/">log_in</a>#}
+{#            <a href="/student/sign_up/">sign_up</a>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="pg-body">#}
+{#        <div class="lead text-center login-form">#}
+{#            <form method="post" action="/student/login/">#}
+{#                {{ status }}<br>#}
+{#                <input type="text" name="username" placeholder="用户名：" autocomplete="off"/><br>#}
+{#                <input type="password" name="password" placeholder="密 码：" autocomplete="off"/><br>#}
+{#                <input type="submit" value="登录">#}
+{#            </form>#}
+{#        </div>#}
+{#    </div>#}
+{#</body>#}
+{#</html>#}

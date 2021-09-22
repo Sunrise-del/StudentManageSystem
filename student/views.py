@@ -1,26 +1,36 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 
 # Create your views here.
 
 from student.models import StudentPwd, StudentInfo, Course
 
 
+# 检查是否登录
+# 先调用check_login(add)，返回inner函数，此时调用add就相当于调用装饰器中的inner函数，参数是add的参数
+def check_login(func):
+    def inner(*args, **kwargs):
+        # 判断是否登录 如果未登录，需要先登录
+        if "user" not in args[0].session.keys():
+            print(args[0])
+            context = {
+                "status": "你好，若想使用该系统，请登录"
+            }
+            return render(args[0], 'student/login.html', context)
+        # 如果已登录，返回add函数，继续执行往下执行add函数
+        return func(*args, **kwargs)
+
+    return inner
+
+
 # 主界面
-# request里面包含了用户所有的请求数据
+@check_login
 def index(request):
-    if "user" in request.session.keys():
-        context = {
-            'length': 1
-        }
-        return render(request, 'student/index.html', context)
-    else:
-        context = {
-            "status": "游客"
-        }
-        return render(request, 'student/index.html', context)
+    stu_info = StudentInfo.objects.all()
+    return render(request, 'student/index.html', {"stu_info": stu_info})
 
 
 # 注册页面
+# request里面包含了用户所有的请求数据
 def sign_up(request):
     if request.method == "POST":
         # 获取用户浏览器中输入的数据
@@ -63,30 +73,24 @@ def login(request):
                     'username': username,
                     'password': password
                 }
-                context = {
-                    'status': username,
-                    'length': 1
-                }
-                return render(request, 'student/index.html', context)
+                return redirect('/student/index/')
             else:
                 context = {
                     'status': '密码错误，请重新输入'
                 }
                 return render(request, 'student/login.html', context)
     else:
-        context = {
-            'status': '你好，若想使用该系统，请登录',
-        }
-        return render(request, 'student/login.html', context)
+        return render(request, 'student/login.html')
 
 
 # 退出登录
 def logout(request):
     del request.session['user']
-    return render(request, 'student/index.html')
+    return render(request, 'student/login.html')
 
 
 # 增加数据
+@check_login
 def add(request):
     if request.method == "POST":
         # 获取用户浏览器中输入的数据
@@ -94,89 +98,54 @@ def add(request):
         stu_name = request.POST.get('stu_name')
         stu_faculty = request.POST.get("stu_faculty")
         stu_major = request.POST.get("stu_major")
-
         # 将浏览器中的数据赋值至数据库
         StudentInfo.objects.create(stu_id=stu_id, stu_name=stu_name, stu_faculty=stu_faculty, stu_major=stu_major)
-        # stu_data = StudentInfo()
-        # stu_data.stu_name = stu_name
-        # stu_data.stu_faculty = stu_faculty
-        # stu_data.stu_major = stu_major
-        # stu_data.save()
-        context = {
-            "txt": "添加学生信息成功",
-            "length": 1,
-        }
-        return render(request, 'student/index.html', context)
+        return redirect('/student/index/')
     else:
         return render(request, 'student/add.html')
 
 
 # 删除学生信息
+@check_login
 def delete(request):
-    if request.method == "POST":
-        stu_id = request.POST.get("stu_id")
-        # filter查询字段时 如果不存在，返回false，不会报错。get会报错
-        if StudentInfo.objects.filter(stu_id=stu_id):
-            StudentInfo.objects.get(stu_id=stu_id).delete()
-            context = {
-                "txt": '删除学生信息成功',
-                'length': 1,
-            }
-            return render(request, 'student/index.html', context)
-        else:
-            context = {
-                'txt': "你输入的学生姓名不存在，请重新输入"
-            }
-            return render(request, 'student/delete.html', context)
-    else:
-        return render(request, 'student/delete.html')
-
+    stu_id = request.GET.get("stu_id")
+    StudentInfo.objects.filter(stu_id=stu_id).delete()
+    return redirect('/student/index/')
 
 # 查询学生信息
+@check_login
 def select(request):
     if request.method == "POST":
         stu_id = request.POST.get("stu_id")
         if StudentInfo.objects.filter(stu_id=stu_id):
-            stu_data = StudentInfo.objects.get(stu_id=stu_id)
-            stu_name = stu_data.stu_name
-            stu_faculty = stu_data.stu_faculty
-            stu_major = stu_data.stu_major
-            context = {
-                'msg': True,
-                'stu_id':stu_id,
-                'stu_name': stu_name,
-                'stu_faculty': stu_faculty,
-                'stu_major': stu_major,
-                'status': '查询结果如下:'
-            }
-            return render(request, 'student/select.html', context)
+            print("哈哈哈哈哈")
+            stu_select_info = StudentInfo.objects.filter(stu_id=stu_id)
+            return render(request, 'student/select.html', {"stu_select_info": stu_select_info})
         else:
             context = {
-                'txt': "你输入的学生姓名不存在，请重新输入"
+                'msg': True,
+                'txt': "你输入的学生不存在，请重新输入"
             }
             return render(request, 'student/select.html', context)
     else:
-        return render(request, 'student/select.html')
+        context = {
+            'msg': True,
+        }
+        return render(request, 'student/select.html', context)
 
 
 # 修改学生信息
+@check_login
 def update(request):
     if request.method == "POST":
-        stu_id = request.POST.get("stu_id")
+        stu_id = request.GET.get('stu_id')
         stu_name = request.POST.get("stu_name")
         stu_faculty = request.POST.get("stu_faculty")
         stu_major = request.POST.get("stu_major")
-        if StudentInfo.objects.filter(stu_id=stu_id):
-            StudentInfo.objects.filter(stu_id=stu_id).update(stu_name=stu_name, stu_faculty=stu_faculty, stu_major=stu_major)
-            context = {
-                'stu_id': stu_id,
-                'stu_name': stu_name,
-                'stu_faculty': stu_faculty,
-                'stu_major': stu_major,
-                'status': '修改成功！结果如下：',
-                'msg': True
-            }
-            return render(request, 'student/select.html', context)
+        StudentInfo.objects.filter(stu_id=stu_id).update(stu_name=stu_name, stu_faculty=stu_faculty,
+                                                         stu_major=stu_major)
+        return redirect('/student/index/')
     else:
-
-        return render(request, 'student/update.html')
+        stu_id = request.GET.get('stu_id')
+        stu_info = StudentInfo.objects.get(stu_id=stu_id)
+        return render(request, 'student/update.html', {"stu_info": stu_info})
